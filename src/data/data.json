@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "name": "aria",
+      "lastname": "chalipa",
+      "email": "aria@example.com",
+      "password": "123456",
+      "id": "FdNty64td_g"
+    },
+    {
+      "name": "sdfrer",
+      "password": "wewef",
+      "id": "B-G1QFJUhWo"
+    },
+    {
+      "name": "djfvn",
+      "password": "l;fkvmrlk",
+      "id": "PeUqeED6_UA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
