@@ -1,9 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import axios from '../axios/axios.js';
+import { useRouter } from 'vue-router';
 
+
+const router = useRouter();
+const users = ref([]);
 const username = ref('');
 const password = ref('');
+const email = ref('')
 const success = ref(null);
 const error = ref(null);
 const isLoading = ref(false);
@@ -13,11 +18,14 @@ async function login() {
     success.value = null;
     error.value = null;
     try{
-        const res = await axios.post ('/users', {
-            name: username.value,
-            password: password.value
-        })
-        success.value = res.data;
+        const res = await axios.get ('/users')
+        users.value = res.data;
+        if(users.value.some(user => user.username === username.value && user.password === password.value && user.email === email.value)){
+            success.value = 'Login successful';
+        } else {
+            error.value = 'Invalid username, email or password';
+        }
+       // route.push('/dashboard');
     } catch (err) {
         error.value = 'something went wrong';
         console.error(err);
@@ -25,6 +33,7 @@ async function login() {
         isLoading.value = false;
         username.value = '';
         password.value = '';
+        email.value = '';
     }
 }
 </script>
@@ -72,6 +81,10 @@ async function login() {
                             <input id="username" v-model="username" class="w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20" type="text" placeholder="Enter your username" autocomplete="username" required />
                         </div>
                         <div>
+                            <label class="mb-2 block text-sm font-medium text-slate-200" for="email">email</label>
+                            <input id="password" v-model="email" class="w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20" type="email" placeholder="Enter your emai" autocomplete="current-password" required />
+                        </div>
+                        <div>
                             <label class="mb-2 block text-sm font-medium text-slate-200" for="password">Password</label>
                             <input id="password" v-model="password" class="w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20" type="password" placeholder="Enter your password" autocomplete="current-password" required />
                         </div>
@@ -85,6 +98,9 @@ async function login() {
                     </form>
 
                     <p class="mt-8 text-center text-xs leading-5 text-slate-500">By continuing, you agree to our terms and privacy policy.</p>
+                    <button @click="router.push('/signup')" class="mt-4 w-full rounded-xl bg-slate-800 px-4 py-3.5 text-sm font-semibold text-slate-200 transition hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-700 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:cursor-not-allowed disabled:opacity-60" type="button">
+                        Sign Up
+                    </button>
                 </section>
             </div>
         </div>
