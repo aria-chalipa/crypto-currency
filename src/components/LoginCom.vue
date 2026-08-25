@@ -2,9 +2,11 @@
 import { ref } from 'vue';
 import axios from '../axios/axios.js';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/user.js';
 
 
 const router = useRouter();
+const userStore = useUserStore();
 const users = ref([]);
 const username = ref('');
 const password = ref('');
@@ -20,12 +22,15 @@ async function login() {
     try{
         const res = await axios.get ('/users')
         users.value = res.data;
-        if(users.value.some(user => user.username === username.value && user.password === password.value && user.email === email.value)){
+        const foundUser = users.value.find(user => user.name === username.value && user.password === password.value && user.email === email.value);
+        if (foundUser) {
             success.value = 'Login successful';
+            localStorage.setItem('user', JSON.stringify(foundUser));
+            userStore.setUser(foundUser);
+            //await router.push('/dashboard');
         } else {
             error.value = 'Invalid username, email or password';
         }
-       // route.push('/dashboard');
     } catch (err) {
         error.value = 'something went wrong';
         console.error(err);
@@ -82,7 +87,7 @@ async function login() {
                         </div>
                         <div>
                             <label class="mb-2 block text-sm font-medium text-slate-200" for="email">email</label>
-                            <input id="password" v-model="email" class="w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20" type="email" placeholder="Enter your emai" autocomplete="current-password" required />
+                            <input id="password" v-model="email" class="w-full rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20" type="email" placeholder="Enter your email" autocomplete="current-password" required />
                         </div>
                         <div>
                             <label class="mb-2 block text-sm font-medium text-slate-200" for="password">Password</label>

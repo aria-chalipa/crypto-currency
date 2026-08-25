@@ -12,11 +12,31 @@ const success = ref(null)
 const error = ref(null)
 const isLoading = ref(false)
 
+async function handleRepeatedEmail() {
+    try {
+        const res = await axios.get('/users')
+        const users = res.data
+        const foundUser = users.find(user => user.email === email.value)
+        if (foundUser) {
+            error.value = 'Email already exists'
+            return true
+        }
+    } catch (err) {
+        error.value = 'something went wrong'
+        console.error(err)
+    }
+    return false
+}
+
 async function signIn() {
   isLoading.value = true
   success.value = null
   error.value = null
   try {
+    const emailExists = await handleRepeatedEmail()
+    if (emailExists) {
+      return
+    }
     const res = await axios.post('/users', {
       name: name.value,
       lastname: lastName.value,
@@ -50,7 +70,7 @@ async function signIn() {
     ></div>
 
     <div
-      class="relative z-10 mx-auto grid w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] shadow-2xl shadow-black/30 backdrop-blur-xl lg:grid-cols-[0.95fr_1.05fr]"
+      class="relative z-10 mx-auto grid w-full max-w-5xl overflow-hidden rounded-4xl border border-white/10 bg-white/[0.06] shadow-2xl shadow-black/30 backdrop-blur-xl lg:grid-cols-[0.95fr_1.05fr]"
     >
       <section
         class="hidden flex-col justify-between border-r border-white/10 bg-emerald-400 p-10 text-[#08110f] lg:flex xl:p-14"
