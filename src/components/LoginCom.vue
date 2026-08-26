@@ -27,7 +27,7 @@ async function login() {
             success.value = 'Login successful';
             localStorage.setItem('user', JSON.stringify(foundUser));
             userStore.setUser(foundUser);
-            //await router.push('/dashboard');
+            await router.push(`/dashboard/${foundUser.id}`);
         } else {
             error.value = 'Invalid username, email or password';
         }

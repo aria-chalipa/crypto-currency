@@ -1,5 +1,5 @@
 <script setup>
-import SignupCom from '../components/signinCom.vue'
+import SignupCom from '../components/SigninCom.vue'
 </script>
 
 <template>

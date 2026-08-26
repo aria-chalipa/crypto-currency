@@ -5,14 +5,41 @@
       "lastname": "chalipa",
       "email": "aria@example.com",
       "password": "123456",
-      "id": "FdNty64td_g"
+      "id": "FdNty64td_g",
+      "holdings": [
+        {
+          "name": "Bitcoin",
+          "symbol": "BTC",
+          "amount": "0.184 BTC",
+          "value": "$11,940.38",
+          "change": "+8.42%",
+          "color": "bg-orange-400"
+        },
+        {
+          "name": "Ethereum",
+          "symbol": "ETH",
+          "amount": "2.40 ETH",
+          "value": "$8,358.65",
+          "change": "+3.18%",
+          "color": "bg-indigo-400"
+        },
+        {
+          "name": "Solana",
+          "symbol": "SOL",
+          "amount": "21.4 SOL",
+          "value": "$3,176.56",
+          "change": "-1.04%",
+          "color": "bg-cyan-400"
+        }
+      ]
     },
     {
       "name": "Arya",
       "lastname": "Chalipa",
       "password": "123456",
       "email": "s@example.com",
-      "id": "WezFzwRjkJ4"
+      "id": "WezFzwRjkJ4",
+      "holdings": []
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
