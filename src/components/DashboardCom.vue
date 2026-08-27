@@ -25,8 +25,6 @@ onMounted(async () => {
   if (parsedUser) {
     userStore.setUser(parsedUser)
     await handleHoldings(parsedUser.id)
-  } else {
-    router.push('/login')
   }
 })
 
