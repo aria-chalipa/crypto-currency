@@ -82,7 +82,6 @@ function handelChangePassword() {
   if (disabled.value) {
     if (user.value.password !== currentPassword.value) {
       currentPassErr.value = true
-      console.log(`${user.value.password} !== ${currentPassword.value}`)
       return
     }
     currentPassErr.value = false
@@ -100,6 +99,7 @@ onMounted(() => {
   <section class="w-full px-5 py-6 text-white sm:px-8 lg:px-12 lg:py-10">
     <header>
       <p class="text-sm text-slate-400">Manage your details</p>
+      <p class="text-sm text-slate-400">if you want to change your information click the input</p>
       <h1 class="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
         Welcome, <span class="text-emerald-300">{{ user.name }}</span>
       </h1>

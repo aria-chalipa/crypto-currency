@@ -23,11 +23,19 @@
       "id": "7wwNhT2dfJo"
     },
     {
-      "name": "fariba",
-      "lastname": "dolat",
+      "name": "sasan",
+      "lastname": "azimi",
       "password": "123456",
-      "email": "fariba@example.com",
-      "id": "gYHcfOmB7LE"
+      "email": "sasan@example.com",
+      "id": "wQFnh4-DF60"
+    },
+    {
+      "name": "ali",
+      "lastname": "alizade",
+      "password": "123456",
+      "email": "ali@example.com",
+      "token": "5KO7D^ca",
+      "id": "aT6HlceqP7I"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

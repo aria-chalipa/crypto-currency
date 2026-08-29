@@ -26,6 +26,7 @@ async function login() {
         if (foundUser) {
             success.value = 'Login successful';
             localStorage.setItem('user', JSON.stringify(foundUser));
+            localStorage.setItem('token', foundUser.token);
             userStore.setUser(foundUser);
             await router.push(`/dashboard/${foundUser.id}`);
         } else {

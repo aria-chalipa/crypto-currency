@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import axios from '../axios/axios.js'
 import { useRouter } from 'vue-router'
+import useCreateToken from '@/compositions/useCreateToken.js'
 
 const router = useRouter()
+const { token } = useCreateToken()
 const name = ref('')
 const lastName = ref('')
 const password = ref('')
@@ -42,6 +44,7 @@ async function signIn() {
       lastname: lastName.value,
       password: password.value,
       email: email.value,
+      token: token.value
     })
     success.value = 'account created successfully'
     await router.push('/login')

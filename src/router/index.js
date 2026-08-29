@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import useAuthenticated from '@/compositions/useAuthenticated.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,14 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
+      beforeEnter: (to, from, next) => {
+        const { isAuthenticated } = useAuthenticated()
+        if (isAuthenticated) {
+          next()
+        } else {
+          next('/login')
+        }
+      },
       children: [
         {
           path: ':id',
