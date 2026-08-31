@@ -6,6 +6,14 @@
       "email": "aria@example.com",
       "password": "654321",
       "id": "FdNty64td_g"
+    },
+    {
+      "name": "aria",
+      "lastname": "chalipa",
+      "password": "123456",
+      "email": "aria.chalipa.2002@gmail.com",
+      "token": "8q9/UfzM",
+      "id": "koxlmoXUdnw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

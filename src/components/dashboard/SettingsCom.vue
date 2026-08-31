@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import useTheme from '@/compositions/useTheme.js'
-import axios from '@/axios/axios.js';
-import { useRouter } from 'vue-router';
+import axios from '@/axios/axios.js'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user.js'
 import ModalCom from '../ModalCom.vue'
 
@@ -47,7 +47,8 @@ async function handelDeleteUser() {
       return
     }
     console.error('Error deleting user:', error)
-    deleteError.value = 'An error occurred while trying to delete your account. Please try again later.'
+    deleteError.value =
+      'An error occurred while trying to delete your account. Please try again later.'
   } finally {
     isDeleting.value = false
   }
@@ -55,7 +56,7 @@ async function handelDeleteUser() {
 </script>
 
 <template>
-  <section class="w-full px-5 py-6 text-white sm:px-8 lg:px-12 lg:py-10">
+  <section class="w-full px-5 pb-6 pt-20 text-white sm:px-8 lg:px-12 lg:py-10">
     <header>
       <p class="text-sm text-slate-400">Manage your preferences</p>
       <h1 class="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">Settings</h1>

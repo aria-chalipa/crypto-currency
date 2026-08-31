@@ -10,12 +10,18 @@ const user = computed(() => userStore.user || { name: 'Investor' })
 const firstName = computed(() => user.value.name.charAt(0).toUpperCase() + user.value.name.slice(1))
 const holdings = ref([])
 
-async function handleHoldings(userId) {
-  try {
-    const res = await axios.get(`/users/${userId}`)
-    holdings.value = res.data.holdings || []
-  } catch (error) {
-    console.error('Could not load holdings:', error)
+async function handleHoldings() {
+  const savedUser = localStorage.getItem('user')
+  const parsedUser = savedUser ? JSON.parse(savedUser) : null
+
+  if (parsedUser && parsedUser.holdings) {
+    holdings.value = parsedUser.holdings.map((holding) => ({
+      ...holding,
+      value: `$${(holding.amount * holding.price).toFixed(2)}`,
+      change: `${Math.random() > 0.5 ? '+' : '-'}${(Math.random() * 10).toFixed(2)}%`,
+    }))
+  } else {
+    holdings.value = []
   }
 }
 onMounted(async () => {
@@ -37,27 +43,27 @@ function logout() {
 
 <template>
   <main class="min-h-screen bg-[#071312] text-white lg:flex">
-
-    <section class="w-full px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
-      <header class="flex items-center justify-between">
+    <section class="w-full px-5 pb-6 pt-20 sm:px-8 lg:px-12 lg:py-10">
+      <div class="flex items-center justify-between">
         <div>
           <p class="text-sm text-slate-400">Good morning, {{ firstName }}</p>
           <h1 class="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">Your overview</h1>
         </div>
         <div class="flex items-center gap-3">
-          <button
+          <router-link
             class="rounded-xl border border-white/10 p-2.5 text-slate-400 transition hover:bg-white/5"
             aria-label="Notifications"
+            to="/currency"
           >
-            ♢</button
-          ><button
+            Currency ♢</router-link
+          ><router-link
             class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-300 font-semibold text-[#071312]"
             aria-label="Account settings"
           >
             {{ firstName.charAt(0) }}
-          </button>
+          </router-link>
         </div>
-      </header>
+      </div>
 
       <div class="mt-8 grid gap-5 xl:grid-cols-[1.45fr_0.8fr]">
         <div class="rounded-2xl border border-white/10 bg-[#102320] p-6 sm:p-8">
@@ -111,10 +117,10 @@ function logout() {
             class="flex items-center justify-between border-b border-white/5 px-5 py-5 last:border-0 sm:px-6"
           >
             <div class="flex items-center gap-3">
-              <span class="h-9 w-9 rounded-full" :class="holding.color"></span>
+              <img :src="holding.img" :alt="holding.currency" class="h-8 w-8 rounded-full" />
               <div>
-                <p class="text-sm font-medium">{{ holding.name }}</p>
-                <p class="text-xs text-slate-500">{{ holding.amount }}</p>
+                <p class="text-sm font-medium">{{ holding.currency }}</p>
+                <p class="text-xs text-slate-500">{{ holding.amount?.toFixed(3) }}</p>
               </div>
             </div>
             <div class="text-right">

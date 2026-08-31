@@ -12,9 +12,8 @@ const newPass = ref('')
 const newPassConfirm = ref('')
 const confirmPassErr = ref(false)
 
-watch((currentPassword), () => {
+watch(currentPassword, () => {
   currentPassErr.value = false
-
 })
 
 function fetchUserData() {
@@ -96,7 +95,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="w-full px-5 py-6 text-white sm:px-8 lg:px-12 lg:py-10">
+  <section class="w-full px-5 pb-6 pt-20 text-white sm:px-8 lg:px-12 lg:py-10">
     <header>
       <p class="text-sm text-slate-400">Manage your details</p>
       <p class="text-sm text-slate-400">if you want to change your information click the input</p>

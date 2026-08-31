@@ -49,6 +49,11 @@ const router = createRouter({
           component: () => import('../components/dashboard/SettingsCom.vue'),
         }
       ]
+    },
+    {
+      path: '/currency',
+      name: 'currency',
+      component: ()=> import('../views/CurrencyView.vue')
     }
   ],
 })
